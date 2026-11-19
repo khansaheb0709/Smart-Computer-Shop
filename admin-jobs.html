@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://*.supabase.co; font-src 'self'; connect-src 'self' https://*.supabase.co wss://*.supabase.co; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0d3b2e">
+<meta name="robots" content="noindex,nofollow">
+<title>এডমিন — জব বোর্ড — সেবাঘর</title>
+<link rel="icon" href="assets/img/icon.svg">
+<link rel="stylesheet" href="assets/css/bundle.css">
+<link rel="stylesheet" href="assets/css/tools.css">
+</head>
+<body>
+<a class="skip-link" href="#main">মূল কন্টেন্টে যান</a>
+<header class="topbar">
+  <div class="container">
+    <a class="topbar-title" href="admin.html">সেবাঘর — এডমিন</a>
+    <span class="topbar-spacer"></span>
+    <a class="topbar-link" href="admin-orders.html">অর্ডার কিউ</a>
+    <a class="topbar-link" href="admin-customers.html">কাস্টমার</a>
+    <a class="topbar-link" href="admin-work-queue.html">কাজের কিউ</a>
+    <a class="topbar-link" href="admin-services.html">সেবাসমূহ</a>
+    <a class="topbar-link" href="admin-reports.html">রিপোর্ট</a>
+    <a class="topbar-link" href="jobs.html">জব বোর্ড ↗</a>
+  </div>
+</header>
+<main class="page" id="main">
+  <div class="container">
+    <div class="gate-403" id="gate403" hidden><h1>প্রবেশ নিষিদ্ধ</h1><p class="muted">আপনি এডমিন নন।</p><p><a class="btn btn-primary" href="login.html?next=admin-jobs.html">সাইন ইন করুন</a></p></div>
+    <div id="adminArea" hidden>
+      <h1>জব বোর্ড — বিজ্ঞপ্তি ব্যবস্থাপনা</h1>
+      <form class="card" id="jobForm" style="margin:var(--sp-3) 0">
+        <h2 id="formTitle">নতুন বিজ্ঞপ্তি</h2>
+        <input type="hidden" id="jobId">
+        <div class="row-2">
+          <div class="field"><label for="title_bn">পদের নাম *</label><input id="title_bn" required placeholder="কম্পিউটার অপারেটর (১ জন)"></div>
+          <div class="field"><label for="company">প্রতিষ্ঠান</label><input id="company" value="সেবাঘর"></div>
+        </div>
+        <div class="row-3">
+          <div class="field"><label for="category">ক্যাটাগরি</label><select id="category"><option value="govt">সরকারি</option><option value="private">প্রাইভেট</option><option value="factory">ফ্যাক্টরি</option><option value="shop" selected>দোকান</option><option value="driver">ড্রাইভিং</option><option value="computer">কম্পিউটার</option><option value="tailoring">দর্জি</option><option value="other">অন্যান্য</option></select></div>
+          <div class="field"><label for="job_type">ধরন</label><select id="job_type"><option value="full_time" selected>ফুল-টাইম</option><option value="part_time">পার্ট-টাইম</option><option value="contract">চুক্তি</option><option value="temporary">সাময়িক</option></select></div>
+          <div class="field"><label for="whatsapp">WhatsApp নম্বর *</label><input id="whatsapp" required inputmode="numeric" pattern="01[3-9][0-9]{8}" placeholder="017XXXXXXXX"></div>
+        </div>
+        <div class="row-3">
+          <div class="field"><label for="location_bn">স্থান</label><input id="location_bn" placeholder="ডুমুরিয়া, খুলনা"></div>
+          <div class="field"><label for="salary_bn">বেতন</label><input id="salary_bn" placeholder="৮,০০০ – ১২,০০০ ৳"></div>
+          <div class="field"><label for="deadline">আবেদনের শেষ তারিখ</label><input id="deadline" type="date"></div>
+        </div>
+        <div class="field"><label for="description_bn">বিবরণ * <span class="hint">(কমপক্ষে ১০ অক্ষর)</span></label><textarea id="description_bn" required minlength="10" placeholder="কাজের বিবরণ, কী করতে হবে…"></textarea></div>
+        <div class="field"><label for="requirements_bn">যোগ্যতা (ঐচ্ছিক)</label><textarea id="requirements_bn" placeholder="এসএসসি পাস…"></textarea></div>
+        <div class="btn-row">
+          <button class="btn btn-primary" type="submit" id="saveBtn">সেভ করুন</button>
+          <button class="btn btn-ghost" type="button" id="cancelEditBtn" hidden>বাতিল</button>
+        </div>
+      </form>
+      <div class="card">
+        <h2>সকল বিজ্ঞপ্তি</h2>
+        <div id="jobsList" aria-live="polite"><p class="muted">লোড হচ্ছে…</p></div>
+      </div>
+    </div>
+  </div>
+</main>
+<script src="assets/js/vendor-supabase.min.js" defer></script>
+<script src="assets/js/strings.js" defer></script>
+<script src="assets/js/config.js" defer></script>
+<script src="assets/js/dom.js" defer></script>
+<script src="assets/js/supabase.js" defer></script>
+<script src="assets/js/pages/admin-jobs.js" defer></script>
+</body>
+</html>

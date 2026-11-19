@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://*.supabase.co; font-src 'self'; connect-src 'self' https://*.supabase.co wss://*.supabase.co; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0d3b2e">
+<meta name="robots" content="noindex,nofollow">
+<title>এডমিন — কাজের কিউ — সেবাঘর</title>
+<link rel="icon" href="assets/img/icon.svg">
+<link rel="stylesheet" href="assets/css/bundle.css">
+<link rel="stylesheet" href="assets/css/tools.css">
+<style>
+.wq-board{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;align-items:start}
+@media (max-width:1100px){.wq-board{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:760px){.wq-board{grid-template-columns:1fr}}
+.wq-col{background:#f5f3ea;border:1px solid var(--line);border-radius:12px;padding:8px;min-height:120px}
+.wq-col h2{font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);display:flex;justify-content:space-between;margin:0 4px 8px}
+.wq-card{background:#fff;border:1px solid var(--line);border-left:4px solid var(--green);border-radius:8px;padding:8px;margin-bottom:8px;font-size:13px}
+.wq-card.p1{border-left-color:#b3261e}.wq-card.p3{border-left-color:#94a3b8}
+.wq-card .wq-title{font-weight:700}
+.wq-card .wq-meta{font-size:11px;color:var(--muted);margin:2px 0 6px}
+.wq-card select{width:100%;min-height:36px;margin-top:4px}
+.wq-overdue{color:#b3261e;font-weight:700}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">মূল কন্টেন্টে যান</a>
+<header class="topbar">
+  <div class="container">
+    <a class="topbar-title" href="admin.html">সেবাঘর — এডমিন</a>
+    <span class="topbar-spacer"></span>
+    <a class="topbar-link" href="admin-orders.html">অর্ডার কিউ</a>
+    <a class="topbar-link" href="admin-customers.html">কাস্টমার</a>
+    <a class="topbar-link" href="admin-work-queue.html">কাজের কিউ</a>
+    <a class="topbar-link" href="admin-jobs.html">জব বোর্ড</a>
+    <a class="topbar-link" href="admin-services.html">সেবাসমূহ</a>
+    <a class="topbar-link" href="admin-reports.html">রিপোর্ট</a>
+  </div>
+</header>
+<main class="page" id="main">
+  <div class="container">
+    <div class="gate-403" id="gate403" hidden><h1>প্রবেশ নিষিদ্ধ</h1><p class="muted">আপনি এডমিন নন।</p><p><a class="btn btn-primary" href="login.html?next=admin-work-queue.html">সাইন ইন করুন</a></p></div>
+    <div id="adminArea" hidden>
+      <h1>কাজের কিউ <span class="hint" id="wqSummary"></span></h1>
+      <p class="muted">কোনো কাজ কোথায় — এক নজরে। কার্ডের নিচের ড্রপডাউন থেকে অবস্থা বদলান।</p>
+      <form class="card" id="taskForm" style="margin:var(--sp-3) 0">
+        <h2>নতুন কাজ যোগ করুন</h2>
+        <div class="row-2">
+          <div class="field"><label for="title_bn">কাজের বিবরণ *</label><input id="title_bn" required placeholder="করিম মিয়ার NID স্ক্যান + ২ কপি"></div>
+          <div class="field"><label for="service_hint">সেবা (ঐচ্ছিক)</label><input id="service_hint" placeholder="NID স্ক্যান"></div>
+        </div>
+        <div class="row-3">
+          <div class="field"><label for="customer_name">কাস্টমারের নাম</label><input id="customer_name" placeholder="করিম মিয়া"></div>
+          <div class="field"><label for="customer_phone">ফোন</label><input id="customer_phone" inputmode="tel" placeholder="017XXXXXXXX"></div>
+          <div class="field"><label for="tokenToday">আজকের টোকেন (যদি থাকে)</label><input id="tokenToday" inputmode="numeric" placeholder="যেমন ১২"></div>
+        </div>
+        <div class="row-3">
+          <div class="field"><label for="priority">অগ্রাধিকার</label><select id="priority"><option value="1">জরুরি</option><option value="2" selected>সাধারণ</option><option value="3">পরে</option></select></div>
+          <div class="field"><label for="due_date">শেষ তারিখ</label><input id="due_date" type="date"></div>
+          <div class="field"><label for="notes">নোট</label><input id="notes" placeholder="কাস্টমার ৫টায় আসবে"></div>
+        </div>
+        <button class="btn btn-primary" type="submit" id="addTaskBtn">যোগ করুন</button>
+      </form>
+      <div class="wq-board" id="wqBoard" aria-label="কাজের বোর্ড"></div>
+    </div>
+  </div>
+</main>
+<script src="assets/js/vendor-supabase.min.js" defer></script>
+<script src="assets/js/strings.js" defer></script>
+<script src="assets/js/config.js" defer></script>
+<script src="assets/js/dom.js" defer></script>
+<script src="assets/js/supabase.js" defer></script>
+<script src="assets/js/pages/admin-work-queue.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://*.supabase.co; font-src 'self'; connect-src 'self' https://*.supabase.co wss://*.supabase.co; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0d3b2e">
+<meta name="description" content="সেবাঘর জব বোর্ড — দোকান ও আশপাশের চাকরির বিজ্ঞপ্তি, WhatsApp-এ আবেদন করুন।">
+<link rel="icon" href="assets/img/icon.svg">
+<link rel="manifest" href="manifest.json">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="সেবাঘর">
+<link rel="stylesheet" href="assets/css/bundle.css">
+<link rel="stylesheet" href="assets/css/tools.css">
+<title>জব বোর্ড — সেবাঘর</title>
+</head>
+<body>
+<a class="skip-link" href="#main">মূল কন্টেন্টে যান</a>
+<header class="topbar">
+  <div class="container">
+    <a class="topbar-title" href="index.html">সেবাঘর</a>
+    <span class="topbar-spacer"></span>
+    <a class="topbar-link" href="tools/index.html">টুলস</a>
+    <a class="topbar-link" href="services.html">সেবা তালিকা</a>
+    <a class="topbar-link" id="accountLink" href="login.html">সাইন ইন</a>
+  </div>
+</header>
+<main class="page" id="main">
+  <div class="container tool-wrap">
+    <p class="muted small" style="margin-bottom:0">💼 সেবাঘর জব বোর্ড</p>
+    <h1 style="margin-bottom:2px">চাকরির বিজ্ঞপ্তি</h1>
+    <p class="muted">দোকান ও আশপাশের খোঁজা কাজ। আবেদন সরাসরি WhatsApp-এ — কোনো রেজিস্ট্রেশন লাগবে না।</p>
+    <div class="btn-row no-print" role="group" aria-label="ক্যাটাগরি" id="catRow" style="margin-bottom:var(--sp-3)"></div>
+    <div class="jobs-grid" id="jobsGrid" aria-live="polite">
+      <p class="muted">লোড হচ্ছে…</p>
+    </div>
+    <p class="hint" style="margin-top:var(--sp-4)">মালিক বা নিয়োগদাতা? <b>বিজ্ঞপ্তি দিতে</b> দোকানে পাসপোর্ট ছবি/প্রিন্ট দিতে এসে বলুন — এডমিন প্যানেল থেকে যোগ করে দেওয়া হবে।</p>
+  </div>
+</main>
+<script src="assets/js/vendor-supabase.min.js" defer></script>
+<script src="assets/js/strings.js" defer></script>
+<script src="assets/js/config.js" defer></script>
+<script src="assets/js/dom.js" defer></script>
+<script src="assets/js/supabase.js" defer></script>
+<script src="assets/js/app-shell.js" defer></script>
+<script src="assets/js/pages/jobs.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://*.supabase.co; font-src 'self'; connect-src 'self' https://*.supabase.co wss://*.supabase.co; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0d3b2e">
+<meta name="robots" content="noindex,nofollow">
+<title>এডমিন — কাস্টমার ও ফাইল লাইব্রেরি — সেবাঘর</title>
+<link rel="icon" href="assets/img/icon.svg">
+<link rel="stylesheet" href="assets/css/bundle.css">
+<link rel="stylesheet" href="assets/css/tools.css">
+<style>
+.cust-grid{display:grid;grid-template-columns:340px 1fr;gap:var(--sp-3);align-items:start}
+@media (max-width:900px){.cust-grid{grid-template-columns:1fr}}
+.cust-item{display:block;width:100%;text-align:left;border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 10px;margin-bottom:8px;cursor:pointer}
+.cust-item:hover{border-color:var(--green)}
+.cust-item.active{border-color:var(--green);box-shadow:0 0 0 2px var(--green)}
+.cust-name{font-weight:700}
+.cust-sub{font-size:12px;color:var(--muted)}
+.file-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.file-item{border:1px solid var(--line);border-radius:8px;padding:8px;background:#fffdf2;font-size:12px;word-break:break-all}
+.file-item a{color:var(--green);font-weight:600}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">মূল কন্টেন্টে যান</a>
+<header class="topbar">
+  <div class="container">
+    <a class="topbar-title" href="admin.html">সেবাঘর — এডমিন</a>
+    <span class="topbar-spacer"></span>
+    <a class="topbar-link" href="admin-orders.html">অর্ডার কিউ</a>
+    <a class="topbar-link" href="admin-customers.html">কাস্টমার</a>
+    <a class="topbar-link" href="admin-work-queue.html">কাজের কিউ</a>
+    <a class="topbar-link" href="admin-jobs.html">জব বোর্ড</a>
+    <a class="topbar-link" href="admin-services.html">সেবাসমূহ</a>
+    <a class="topbar-link" href="admin-reports.html">রিপোর্ট</a>
+  </div>
+</header>
+<main class="page" id="main">
+  <div class="container">
+    <div class="gate-403" id="gate403" hidden><h1>প্রবেশ নিষিদ্ধ</h1><p class="muted">আপনি এডমিন নন।</p><p><a class="btn btn-primary" href="login.html?next=admin-customers.html">সাইন ইন করুন</a></p></div>
+    <div id="adminArea" hidden>
+      <h1>কাস্টমার ও ফাইল লাইব্রেরি</h1>
+      <p class="muted">ফোন নম্বর/নাম দিয়ে খুঁজুন — কাস্টমারের সব কাজ ও ফাইল এক জায়গায়</p>
+      <div class="field" style="max-width:420px"><label for="searchInput">খুঁজুন (ফোন/নাম)</label><input id="searchInput" inputmode="search" placeholder="017XXXXXXXX বা নাম" autocomplete="off"></div>
+      <p class="hint" id="loadInfo"></p>
+      <div class="cust-grid">
+        <div id="custList" aria-label="কাস্টমার তালিকা"></div>
+        <div id="custDetail" aria-live="polite"><p class="muted">বামে একজন কাস্টমার বাছুন।</p></div>
+      </div>
+    </div>
+  </div>
+</main>
+<script src="assets/js/vendor-supabase.min.js" defer></script>
+<script src="assets/js/strings.js" defer></script>
+<script src="assets/js/config.js" defer></script>
+<script src="assets/js/dom.js" defer></script>
+<script src="assets/js/supabase.js" defer></script>
+<script src="assets/js/pages/admin-customers.js" defer></script>
+</body>
+</html>

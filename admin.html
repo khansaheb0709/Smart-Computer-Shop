@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://accounts.google.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://*.supabase.co; font-src 'self'; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://www.googleapis.com https://accounts.google.com; frame-src https://accounts.google.com; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0d3b2e">
+<meta name="robots" content="noindex,nofollow">
+<title>এডমিন — সেবাঘর</title>
+<link rel="icon" href="assets/img/icon.svg">
+<link rel="stylesheet" href="assets/css/bundle.css">
+</head>
+<body>
+<a class="skip-link" href="#main">মূল কন্টেন্টে যান</a>
+<header class="topbar">
+  <div class="container">
+    <a class="topbar-title" href="admin.html">সেবাঘর — এডমিন</a>
+    <span class="topbar-spacer"></span>
+    <a class="topbar-link" href="admin-orders.html">অর্ডার কিউ</a>
+    <a class="topbar-link" href="admin-customers.html">কাস্টমার</a>
+    <a class="topbar-link" href="admin-work-queue.html">কাজের কিউ</a>
+    <a class="topbar-link" href="admin-jobs.html">জব বোর্ড</a>
+    <a class="topbar-link" href="admin-services.html">সেবাসমূহ</a>
+    <a class="topbar-link" href="admin-reports.html">রিপোর্ট</a>
+    <a class="topbar-link" href="index.html">সাইট দেখুন</a>
+    <button class="topbar-link" id="signOutBtn" type="button">সাইন আউট</button>
+  </div>
+</header>
+
+<main class="page" id="main">
+  <div class="container">
+
+    <div class="gate-403" id="gate403" hidden>
+      <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="var(--danger)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+      <h1>প্রবেশ নিষিদ্ধ</h1>
+      <p class="muted">আপনি এডমিন নন। দোকানের ইমেইল দিয়ে সাইন ইন করুন।</p>
+      <p style="margin-top:16px"><a class="btn btn-primary" href="login.html?next=admin.html">সাইন ইন করুন</a></p>
+    </div>
+
+    <div id="adminArea" hidden>
+      <div class="admin-shell">
+        <div>
+          <h1>দোকান সেটিংস</h1>
+          <p class="muted small">যা বদলাবেন তা সাইটে সঙ্গে সঙ্গে দেখা যাবে</p>
+        </div>
+        <span class="badge" id="adminWho"></span>
+      </div>
+
+      <form class="card" id="settingsForm" novalidate>
+        <div class="settings-grid">
+          <div class="field full">
+            <label for="shop_name">দোকানের নাম</label>
+            <input class="control" id="shop_name" name="shop_name" type="text" placeholder="সেবাঘর — কম্পিউটার ও গ্রাফিক্স">
+          </div>
+          <div class="field full">
+            <label for="address_bn">ঠিকানা</label>
+            <input class="control" id="address_bn" name="address_bn" type="text" placeholder="ডুমুরিয়া, খুলনা">
+          </div>
+          <div class="field">
+            <label for="phone">দোকানের নম্বর (হটলাইন)</label>
+            <input class="control" id="phone" name="phone" type="tel" inputmode="numeric" placeholder="017XXXXXXXX">
+          </div>
+          <div class="field">
+            <label for="opening_hours_bn">খোলার সময়</label>
+            <input class="control" id="opening_hours_bn" name="opening_hours_bn" type="text" placeholder="সকাল ৯টা – রাত ৮টা (সাপ্তাহিক ছুটি: শুক্রবার)">
+          </div>
+          <div class="field">
+            <label for="bkash_number">বিকাশ নম্বর</label>
+            <input class="control" id="bkash_number" name="bkash_number" type="tel" inputmode="numeric" placeholder="01XXXXXXXXX">
+          </div>
+          <div class="field">
+            <label for="bkash_name">বিকাশ নামে</label>
+            <input class="control" id="bkash_name" name="bkash_name" type="text" placeholder="মোঃ কামাল হোসেন">
+          </div>
+          <div class="field">
+            <label for="nagad_number">নগদ নম্বর</label>
+            <input class="control" id="nagad_number" name="nagad_number" type="tel" inputmode="numeric" placeholder="01XXXXXXXXX">
+          </div>
+          <div class="field">
+            <label for="nagad_name">নগদ নামে</label>
+            <input class="control" id="nagad_name" name="nagad_name" type="text" placeholder="মোঃ কামাল হোসেন">
+          </div>
+          <div class="field">
+            <label for="slot1">পিকআপ স্লট ১</label>
+            <input class="control" id="slot1" name="slot1" type="text" placeholder="আজ সন্ধ্যা ৬–৮টা">
+          </div>
+          <div class="field">
+            <label for="slot2">পিকআপ স্লট ২</label>
+            <input class="control" id="slot2" name="slot2" type="text" placeholder="আগামীকাল সকাল">
+          </div>
+          <div class="field">
+            <label for="slot3">পিকআপ স্লট ৩</label>
+            <input class="control" id="slot3" name="slot3" type="text" placeholder="আগামীকাল দুপুর">
+          </div>
+          <div class="field full">
+            <label for="receipt_footer_bn">রসিদের ফুটার লেখা</label>
+            <input class="control" id="receipt_footer_bn" name="receipt_footer_bn" type="text" placeholder="ধন্যবাদ, আবার আসবেন! — সেবাঘর">
+          </div>
+          <label class="check full">
+            <input type="checkbox" id="bn_digits">
+            <span>রসিদে বাংলা সংখ্যা (১২৩) ব্যবহার করুন</span>
+          </label>
+        </div>
+        <div style="margin-top:20px; display:flex; gap:12px; flex-wrap:wrap">
+          <button class="btn btn-primary" type="submit" id="saveSettingsBtn">সেভ করুন</button>
+          <a class="btn btn-ghost" href="internal/index.html">দলিল সহায়ক (অভ্যন্তরীণ টুল) ↗</a>
+        </div>
+      </form>
+
+      <div class="card" style="margin-top:var(--sp-4)">
+        <h2>ডেটা ব্যবস্থাপনা</h2>
+        <p class="small muted" style="margin:6px 0 12px">NID-এর মতো সংবেদনশীল ফাইল ৩০ দিন পর রাখা যাবে না (আইনানুগ চর্চা)। ব্যাকআপ JSON ফাইলে অর্ডার, আইটেম, পেমেন্ট ও গ্রাহকের নাম/ফোন থাকবে — কোনো ফাইল (বাইনারি) নয়।</p>
+        <div class="row">
+          <button class="btn btn-ghost" id="nidPurgeBtn" type="button">৩০ দিনের পুরোনো NID ফাইল মুছুন</button>
+          <button class="btn btn-ghost" id="backupBtn" type="button">সব ডেটা JSON ডাউনলোড</button>
+        </div>
+        <div style="margin-top:18px;border-top:1px solid var(--line);padding-top:14px">
+          <h3 style="font-size:15px;margin-bottom:6px">☁️ Google Drive ব্যাকআপ</h3>
+          <p class="small muted" style="margin:6px 0 10px">ব্যাকআপ JSON সরাসরি আপনার Google ড্রাইভের (অ্যাপের লুকানো ফোল্ডারে) আপলোড হয় — শুধু এই অ্যাপই দেখতে পায়। রিস্টোর করলে ফাইলটি ডাউনলোড হবে; আসল রিস্টোর <code>tools/restore-backup.sql</code> দিয়ে (docs/07_Runbook)।</p>
+          <div id="driveSetupBox" class="warn-box" hidden>
+            <b>প্রথমবার সেটআপ (একবারের কাজ):</b><br>
+            ১. console.cloud.google.com → প্রজেক্ট তৈরি/বাছুন → APIs &amp; Services → Library → <b>Google Drive API</b> চালু করুন<br>
+            ২. OAuth consent screen → External → অ্যাপের নাম “সেবাঘর ব্যাকআপ” → Save<br>
+            ৩. Credentials → Create Credentials → <b>OAuth client ID</b> → Web application<br>
+            ৪. Authorized JavaScript origins: এই সাইটের ঠিকানা (যেমন <code>https://&lt;your-domain&gt;</code> ও GitHub Pages URL)<br>
+            ৫. নিচের বক্সে Client ID পেস্ট করে সেভ করুন — অথবা <code>assets/js/config.js</code>-এ <code>GOOGLE_DRIVE_CLIENT_ID</code>-এ বসিয়ে দিন
+            <div class="field" style="margin-top:8px"><label for="driveClientIdInput">Google OAuth Client ID</label><input class="control" id="driveClientIdInput" placeholder="1234567890-abc….apps.googleusercontent.com" autocomplete="off"></div>
+            <button class="btn btn-primary btn-small" id="saveDriveClientIdBtn" type="button">Client ID সেভ করুন</button>
+          </div>
+          <div id="driveReadyBox" hidden>
+            <div class="btn-row">
+              <button class="btn btn-primary" id="driveBackupBtn" type="button">☁️ ড্রাইভে ব্যাকআপ নিন</button>
+              <button class="btn btn-ghost" id="driveConnectBtn" type="button">ড্রাইভে সংযুক্ত করুন</button>
+              <button class="btn btn-ghost" id="driveRefreshBtn" type="button">তালিকা হালনাগাদ</button>
+            </div>
+            <p class="hint" id="driveStatus" role="status"></p>
+            <h4 style="font-size:13px;margin:10px 0 4px;color:var(--muted)">ড্রাইভের ব্যাকআপসমূহ <button class="btn btn-ghost btn-small" id="driveCleanupBtn" type="button" style="float:right">সর্বশেষ ৩টি রেখে বাকি মুছুন</button></h4>
+            <div id="driveBackupList"><p class="muted small">“ড্রাইভে সংযুক্ত করুন” চাপুন।</p></div>
+          </div>
+        </div>
+        <p class="small muted" style="margin-top:6px">টোকেন: দিনের প্রথম অর্ডারে ১ থেকে শুরু — প্রতিদিনের সর্বোচ্চ নম্বরের সাথে ১ যোগ করে বসে, কোনো ক্রমিক নম্বর (sequence) নেই, তাই টোকেন কখনোই “desync” হয় না। দোকানের ডেটা ওয়াইপ করলেও টোকেন নিজে থেকে ঠিক হয়ে যাবে। কেউ হাতে অর্ডার হারিয়ে দিলে সর্বোচ্চ টোকেন যাচাই: <code>select order_date, max(token) from orders group by 1 order by 1 desc;</code></p>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<script src="assets/js/vendor-supabase.min.js" defer></script>
+<script src="assets/js/strings.js" defer></script>
+<script src="assets/js/config.js" defer></script>
+<script src="assets/js/dom.js" defer></script>
+<script src="assets/js/supabase.js" defer></script>
+<script src="assets/js/backup-build.js" defer></script>
+<script src="assets/js/pages/admin.js" defer></script>
+<script src="assets/js/pages/admin-drive.js" defer></script>
+</body>
+</html>
