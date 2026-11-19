@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://*.supabase.co; font-src 'self'; connect-src 'self' https://*.supabase.co wss://*.supabase.co; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0d3b2e">
+<title>অ্যাকাউন্ট খুলুন — সেবাঘর</title>
+<link rel="icon" href="assets/img/icon.svg">
+<link rel="manifest" href="manifest.json">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="সেবাঘর">
+<link rel="stylesheet" href="assets/css/bundle.css">
+</head>
+<body>
+<a class="skip-link" href="#main">মূল কন্টেন্টে যান</a>
+<main class="auth-wrap" id="main">
+  <div class="card auth-card" id="signupCard">
+    <div class="auth-brand">
+      <svg class="auth-logo" viewBox="0 0 96 96" role="img" aria-label="সেবাঘর লোগো">
+        <rect x="4" y="4" width="88" height="88" rx="18" fill="#0d3b2e"/>
+        <path d="M32 22h24l10 10v42a4 4 0 0 1-4 4H32a4 4 0 0 1-4-4V26a4 4 0 0 1 4-4z" fill="#f7f5ee"/>
+        <path d="M54 22v12h12" fill="#c9a227"/>
+        <path d="M40 46h18M40 56h18M40 66h12" stroke="#155c47" stroke-width="3.4" stroke-linecap="round"/>
+      </svg>
+      <h1>অ্যাকাউন্ট খুলুন</h1>
+      <p class="muted small">একবার খুললেই অর্ডার হিস্ট্রি আর ট্র্যাকিং পাবেন</p>
+    </div>
+
+    <form id="signupForm" novalidate>
+      <div class="field">
+        <label for="full_name">পূর্ণ নাম</label>
+        <input class="control" id="full_name" name="full_name" type="text" autocomplete="name" required placeholder="যেমন: মোঃ কামাল হোসেন">
+        <span class="field-error" data-for="full_name"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> নাম দিন</span>
+      </div>
+      <div class="field">
+        <label for="phone">মোবাইল নম্বর</label>
+        <input class="control" id="phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel" required placeholder="017XXXXXXXX">
+        <span class="field-hint">01 দিয়ে শুরু, ১১ ডিজিট — অর্ডার ট্র্যাকিংয়ের চাবি</span>
+        <span class="field-error" data-for="phone"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> সঠিক মোবাইল নম্বর দিন</span>
+      </div>
+      <div class="field">
+        <label for="email">ইমেইল</label>
+        <input class="control" id="email" name="email" type="email" inputmode="email" autocomplete="email" required placeholder="name@example.com">
+        <span class="field-error" data-for="email"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> সঠিক ইমেইল দিন</span>
+      </div>
+      <div class="field">
+        <label for="password">পাসওয়ার্ড</label>
+        <input class="control" id="password" name="password" type="password" autocomplete="new-password" required minlength="8" placeholder="অন্তত ৮ অক্ষর">
+        <span class="field-error" data-for="password"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> পাসওয়ার্ড অন্তত ৮ অক্ষর</span>
+      </div>
+      <button class="btn btn-primary" type="submit" id="signupBtn" style="width:100%">অ্যাকাউন্ট খুলুন</button>
+    </form>
+
+    <div class="success-box" id="signupSuccess" hidden>
+      <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      <h2>ইমেইল চেক করুন!</h2>
+      <p class="muted">কনফার্মেশন লিংক আপনার ইমেইলে পাঠানো হয়েছে। লিংকে ক্লিক করলেই সাইন ইন হয়ে যাবে।</p>
+      <p style="margin-top:16px"><a class="btn btn-ghost" href="login.html">সাইন ইন পাতায় যান</a></p>
+    </div>
+
+    <p class="auth-alt">অ্যাকাউন্ট আছে? <a href="login.html">সাইন ইন করুন</a></p>
+  </div>
+</main>
+
+<script src="assets/js/vendor-supabase.min.js" defer></script>
+<script src="assets/js/strings.js" defer></script>
+<script src="assets/js/config.js" defer></script>
+<script src="assets/js/dom.js" defer></script>
+<script src="assets/js/supabase.js" defer></script>
+<script src="assets/js/pages/signup.js"></script>
+<script src="assets/js/app-shell.js" defer></script>
+</body>
+</html>

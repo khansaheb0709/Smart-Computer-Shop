@@ -1,0 +1,65 @@
+/* সেবাঘর — shop.css — catalog, wizard, success, my-orders, admin queue (page-scoped) */
+
+/* ===== Service cards grid ===== */
+.catalog-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:var(--sp-4); }
+.service-card { display:flex; }
+.service-card-body { display:flex; flex-direction:column; gap:var(--sp-2); width:100%; }
+.service-price { font-size:20px; font-weight:800; color:var(--green-800); }
+.service-card:hover { box-shadow:var(--shadow-lift); transform:translateY(-2px); transition:.15s; }
+
+.chips-row { display:flex; gap:var(--sp-2); overflow-x:auto; padding:var(--sp-2) 0; margin-bottom:var(--sp-4); -webkit-overflow-scrolling:touch; }
+.catalog-toolbar { display:flex; gap:var(--sp-3); align-items:center; flex-wrap:wrap; margin-bottom:var(--sp-4); }
+.catalog-toolbar .control { min-height:44px; }
+
+/* ===== Service detail ===== */
+.detail-layout { display:grid; grid-template-columns:1.6fr 1fr; gap:var(--sp-5); align-items:start; }
+@media (max-width:900px) { .detail-layout { grid-template-columns:1fr; } }
+.price-box { position:sticky; top:var(--sp-6); }
+.qty-stepper { display:flex; align-items:center; gap:var(--sp-2); }
+.qty-stepper button { width:44px; height:44px; font-size:20px; }
+.qty-stepper input { width:72px; min-height:44px; text-align:center; font-size:16px; font-weight:700; }
+.line-total { font-size:30px; font-weight:800; color:var(--green-800); }
+
+/* ===== Order wizard ===== */
+.wizard-progress { display:flex; gap:var(--sp-2); margin:var(--sp-4) 0 var(--sp-6); }
+.wizard-step { flex:1; text-align:center; padding:var(--sp-2); border-radius:var(--radius-md); background:#eceade; color:var(--muted); font-size:12px; font-weight:700; }
+.wizard-step.active { background:var(--green-800); color:#ffe9a8; }
+.wizard-step.done { background:var(--ok-soft); color:var(--ok); }
+.draft-item { display:flex; justify-content:space-between; gap:var(--sp-3); align-items:center; padding:var(--sp-3); border:1px solid var(--border); border-radius:var(--radius-md); background:var(--surface); }
+.draft-item + .draft-item { margin-top:var(--sp-2); }
+.dropzone {
+  border:2px dashed var(--line); border-radius:var(--radius-lg); background:#fbfaf4;
+  padding:var(--sp-8) var(--sp-4); text-align:center; cursor:pointer; transition:.15s;
+}
+.dropzone.drag { border-color:var(--green-600); background:var(--ok-soft); }
+.dropzone svg { width:40px; height:40px; margin:0 auto var(--sp-2); stroke:var(--muted); fill:none; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round; }
+.file-chip { display:flex; align-items:center; gap:var(--sp-3); padding:var(--sp-2) var(--sp-3); border:1px solid var(--border); border-radius:var(--radius-md); background:var(--surface); }
+.file-chip + .file-chip { margin-top:var(--sp-2); }
+.file-chip .meta { flex:1; min-width:0; }
+.file-chip .name { font-size:13px; font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.file-progress { height:4px; background:var(--line); border-radius:2px; overflow:hidden; margin-top:4px; }
+.file-progress > div { height:100%; background:var(--green-600); width:0%; transition:width .2s; }
+.pay-options { display:flex; gap:var(--sp-2); flex-wrap:wrap; }
+.pay-option { flex:1; min-width:120px; border:1.5px solid var(--border); border-radius:var(--radius-md); padding:var(--sp-3); cursor:pointer; text-align:center; background:var(--surface); }
+.pay-option input { position:absolute; opacity:0; }
+.pay-option.selected { border-color:var(--green-700); background:var(--ok-soft); box-shadow:var(--focus-ring); }
+.review-total { display:flex; justify-content:space-between; font-size:22px; font-weight:800; color:var(--green-800); border-top:2px dashed var(--line); padding-top:var(--sp-3); margin-top:var(--sp-3); }
+.wizard-foot { display:flex; justify-content:space-between; gap:var(--sp-2); margin-top:var(--sp-6); }
+
+/* ===== Success page ===== */
+.success-token { font-family:'Noto Serif Bengali',serif; font-size:64px; font-weight:800; color:var(--green-800); letter-spacing:.04em; text-align:center; margin:var(--sp-4) 0; padding:var(--sp-4); border:3px dashed var(--gold); border-radius:var(--radius-lg); background:var(--gold-soft); }
+
+/* ===== My orders ===== */
+.order-row { display:flex; justify-content:space-between; align-items:center; gap:var(--sp-3); padding:var(--sp-3) var(--sp-4); border-bottom:1px solid var(--border); cursor:pointer; }
+.order-row:hover { background:#f3f6ec; }
+.order-row:last-child { border-bottom:none; }
+.order-detail-panel { padding:var(--sp-4); background:#fbfaf4; border-top:1px dashed var(--line); }
+
+/* ===== Admin queue ===== */
+.queue-card { display:flex; gap:var(--sp-3); align-items:center; justify-content:space-between; flex-wrap:wrap; padding:var(--sp-4); border:1px solid var(--border); border-left:4px solid var(--green-600); border-radius:var(--radius-md); background:var(--surface); }
+.queue-card + .queue-card { margin-top:var(--sp-3); }
+.queue-card.pending_verification { border-left-color:var(--amber); }
+.queue-card.ready { border-left-color:var(--ok); }
+.queue-token { font-family:'Noto Serif Bengali',serif; font-weight:800; font-size:20px; color:var(--green-800); min-width:64px; }
+.queue-info { flex:1; min-width:180px; }
+.empty-state.compact { padding:var(--sp-8) var(--sp-4); }

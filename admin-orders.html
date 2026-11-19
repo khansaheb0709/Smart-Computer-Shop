@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://*.supabase.co; font-src 'self'; connect-src 'self' https://*.supabase.co wss://*.supabase.co; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0d3b2e">
+<meta name="robots" content="noindex,nofollow">
+<title>অর্ডার কিউ — সেবাঘর এডমিন</title>
+<link rel="icon" href="assets/img/icon.svg">
+<link rel="stylesheet" href="assets/css/bundle.css">
+</head>
+<body>
+<a class="skip-link" href="#main">মূল কন্টেন্টে যান</a>
+<header class="topbar">
+  <div class="container">
+    <a class="topbar-title" href="admin.html">সেবাঘর — এডমিন</a>
+    <span class="topbar-spacer"></span>
+    <a class="topbar-link" href="admin.html">সেটিংস</a>
+    <a class="topbar-link" href="admin-orders.html" aria-current="page">অর্ডার কিউ</a>
+    <a class="topbar-link" href="admin-customers.html">কাস্টমার</a>
+    <a class="topbar-link" href="admin-work-queue.html">কাজের কিউ</a>
+    <a class="topbar-link" href="admin-jobs.html">জব বোর্ড</a>
+    <a class="topbar-link" href="admin-services.html">সেবাসমূহ</a>
+    <a class="topbar-link" href="admin-reports.html">রিপোর্ট</a>
+    <button class="topbar-link" id="signOutBtn" type="button">সাইন আউট</button>
+  </div>
+</header>
+
+<main class="page" id="main">
+  <div class="container" style="max-width:960px">
+    <div class="admin-shell">
+      <div>
+        <h1>অর্ডার কিউ</h1>
+        <p class="muted small" id="queueSummary">লোড হচ্ছে…</p>
+      </div>
+      <button class="btn btn-ghost btn-small" id="refreshBtn" type="button">রিফ্রেশ</button>
+    </div>
+
+    <div class="chips-row" id="tabChips" role="tablist" aria-label="অর্ডার ফিল্টার"></div>
+    <div id="queueList" aria-busy="true"></div>
+    <div id="proofsView" hidden></div>
+
+    <div class="empty-state compact" id="queueEmpty" hidden>
+      <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+      <p>এই ট্যাবে কোনো অর্ডার নেই</p>
+    </div>
+
+    <div class="empty-state" id="gate403" hidden>
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+      <h1>প্রবেশ নিষিদ্ধ</h1>
+      <p>আপনি এডমিন নন।</p>
+      <a class="btn btn-primary" href="login.html?next=admin-orders.html">সাইন ইন করুন</a>
+    </div>
+  </div>
+</main>
+
+<script src="assets/js/vendor-supabase.min.js" defer></script>
+<script src="assets/js/strings.js" defer></script>
+<script src="assets/js/config.js" defer></script>
+<script src="assets/js/dom.js" defer></script>
+<script src="assets/js/supabase.js" defer></script>
+<script src="assets/js/pages/admin-orders.js"></script>
+</body>
+</html>

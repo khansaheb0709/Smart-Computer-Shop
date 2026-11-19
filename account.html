@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://*.supabase.co; font-src 'self'; connect-src 'self' https://*.supabase.co wss://*.supabase.co; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0d3b2e">
+<title>আমার অ্যাকাউন্ট — সেবাঘর</title>
+<link rel="icon" href="assets/img/icon.svg">
+<link rel="manifest" href="manifest.json">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="সেবাঘর">
+<link rel="stylesheet" href="assets/css/bundle.css">
+</head>
+<body>
+<a class="skip-link" href="#main">মূল কন্টেন্টে যান</a>
+<header class="topbar">
+  <div class="container">
+    <a class="topbar-title" href="index.html">সেবাঘর</a>
+    <span class="topbar-spacer"></span>
+    <a class="topbar-link" href="index.html">হোম</a>
+    <button class="topbar-link" id="signOutBtn" type="button">সাইন আউট</button>
+  </div>
+</header>
+
+<main class="page" id="main">
+  <div class="container account-page">
+    <h1>আমার অ্যাকাউন্ট</h1>
+    <p class="muted" id="accountEmail" style="margin:8px 0 20px"></p>
+
+    <div class="card" style="margin-bottom:var(--sp-4); display:flex; align-items:center; justify-content:space-between; gap:var(--sp-3); flex-wrap:wrap">
+      <div><strong>আমার অর্ডার</strong><div class="small muted">অর্ডার ইতিহাস, স্ট্যাটাস ও ডিজাইন প্রমাণ</div></div>
+      <a class="btn btn-primary btn-small" href="my-orders.html">অর্ডার দেখুন</a>
+    </div>
+
+    <form class="card stack" id="accountForm" novalidate>
+      <div class="field">
+        <label for="full_name">পূর্ণ নাম</label>
+        <input class="control" id="full_name" name="full_name" type="text" autocomplete="name" placeholder="আপনার নাম">
+      </div>
+      <div class="field">
+        <label for="phone">মোবাইল নম্বর</label>
+        <input class="control" id="phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="017XXXXXXXX">
+        <span class="field-hint">01 দিয়ে শুরু, ১১ ডিজিট</span>
+        <span class="field-error" data-for="phone"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> সঠিক মোবাইল নম্বর দিন</span>
+      </div>
+      <div class="field">
+        <label for="address">ঠিকানা <span class="muted">(ঐচ্ছিক)</span></label>
+        <input class="control" id="address" name="address" type="text" autocomplete="street-address" placeholder="গ্রাম/মহল্লা, উপজেলা">
+      </div>
+      <label class="check">
+        <input type="checkbox" id="bn_digits">
+        <span>রসিদ ও হিসাবে বাংলা সংখ্যা (১২৩) ব্যবহার করুন</span>
+      </label>
+      <div><button class="btn btn-primary" type="submit" id="saveBtn">সেভ করুন</button></div>
+    </form>
+  </div>
+</main>
+
+<script src="assets/js/vendor-supabase.min.js" defer></script>
+<script src="assets/js/strings.js" defer></script>
+<script src="assets/js/config.js" defer></script>
+<script src="assets/js/dom.js" defer></script>
+<script src="assets/js/supabase.js" defer></script>
+<script src="assets/js/pages/account.js"></script>
+<script src="assets/js/app-shell.js" defer></script>
+</body>
+</html>

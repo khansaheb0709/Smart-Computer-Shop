@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://*.supabase.co; font-src 'self'; connect-src 'self' https://*.supabase.co wss://*.supabase.co; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0d3b2e">
+<meta name="robots" content="noindex">
+<title>আমার অর্ডার — সেবাঘর</title>
+<link rel="icon" href="assets/img/icon.svg">
+<link rel="manifest" href="manifest.json">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="সেবাঘর">
+<link rel="stylesheet" href="assets/css/bundle.css">
+</head>
+<body>
+<a class="skip-link" href="#main">মূল কন্টেন্টে যান</a>
+<header class="topbar">
+  <div class="container">
+    <a class="topbar-title" href="index.html">সেবাঘর</a>
+    <span class="topbar-spacer"></span>
+    <a class="topbar-link" href="track.html">অর্ডার ট্র্যাক করুন</a>
+    <a class="topbar-link" href="account.html">অ্যাকাউন্ট</a>
+    <button class="topbar-link" id="signOutBtn" type="button">সাইন আউট</button>
+  </div>
+</header>
+
+<main class="page" id="main">
+  <div class="container" style="max-width:860px">
+    <h1>আমার অর্ডার</h1>
+    <p class="muted" style="margin:8px 0 20px">যেকোনো অর্ডারে ক্লিক করে বিস্তারিত ও স্ট্যাটাস দেখুন</p>
+
+    <div class="card" id="ordersCard" style="padding:0; overflow:hidden">
+      <div id="ordersList" aria-busy="true"></div>
+      <div class="skeleton" style="height:90px; margin:12px; border-radius:var(--radius-md)" id="ordersLoading"></div>
+      <div class="empty-state" id="ordersEmpty" hidden>
+        <svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg>
+        <p>এখনো কোনো অর্ডার নেই</p>
+        <a class="btn btn-primary" href="services.html">এখনই অর্ডার করুন</a>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script src="assets/js/vendor-supabase.min.js" defer></script>
+<script src="assets/js/strings.js" defer></script>
+<script src="assets/js/config.js" defer></script>
+<script src="assets/js/dom.js" defer></script>
+<script src="assets/js/supabase.js" defer></script>
+<script src="assets/js/catalog.js"></script>
+<script src="assets/js/pages/my-orders.js"></script>
+<script src="assets/js/app-shell.js" defer></script>
+</body>
+</html>

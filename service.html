@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://*.supabase.co; font-src 'self'; connect-src 'self' https://*.supabase.co wss://*.supabase.co; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0d3b2e">
+<title>সেবা বিস্তারিত — সেবাঘর</title>
+<link rel="icon" href="assets/img/icon.svg">
+<link rel="manifest" href="manifest.json">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="সেবাঘর">
+<link rel="stylesheet" href="assets/css/bundle.css">
+</head>
+<body>
+<a class="skip-link" href="#main">মূল কন্টেন্টে যান</a>
+<header class="topbar">
+  <div class="container">
+    <a class="topbar-title" href="index.html">সেবাঘর</a>
+    <span class="topbar-spacer"></span>
+    <a class="topbar-link" href="services.html">সব সেবা</a>
+  </div>
+</header>
+
+<main class="page" id="main">
+  <div class="container">
+    <div id="detailLoading" class="skeleton" style="height:220px"></div>
+
+    <div class="empty-state" id="detailError" hidden>
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <p>এই সেবাটি খুঁজে পাইনি — হয়তো বন্ধ হয়ে গেছে</p>
+      <a class="btn btn-primary" href="services.html">সব সেবা দেখুন</a>
+    </div>
+
+    <div class="detail-layout" id="detailArea" hidden>
+      <div>
+        <span class="badge" id="svcCategory" style="margin-bottom:12px"></span>
+        <h1 id="svcName"></h1>
+        <p class="muted" id="svcDesc" style="margin:12px 0 20px"></p>
+
+        <form id="optionsForm" class="card stack"></form>
+
+        <div class="card" style="margin-top:16px">
+          <h3>যেভাবে কাজ হবে</h3>
+          <ol class="small muted" style="margin:8px 0 0 18px; line-height:2">
+            <li>অর্ডার করুন — টোকেন নম্বর পাবেন</li>
+            <li>দোকান ফাইল/কাগজ যাচাই করে কাজ শুরু করবে</li>
+            <li>তৈয়ারি হলে WhatsApp/টোকেন দিয়ে কালেক্ট করবেন</li>
+          </ol>
+          <p class="small" style="margin-top:10px; color:var(--amber)">প্রস্তুত হলে দোকান থেকে WhatsApp-এ জানিয়ে দেবো</p>
+        </div>
+      </div>
+
+      <aside class="price-box card card-featured" aria-label="অর্ডার সারসংক্ষেপ">
+        <div class="micro" id="svcEta" style="margin-bottom:4px"></div>
+        <div class="small muted">প্রতি <span id="svcUnit"></span></div>
+        <div class="line-total" id="lineTotal">৳০</div>
+
+        <div class="field" style="margin-top:16px">
+          <label for="qtyInput">পরিমাণ</label>
+          <div class="qty-stepper">
+            <button type="button" class="icon-btn" id="qtyMinus" aria-label="কমান">−</button>
+            <input class="control" id="qtyInput" type="number" inputmode="numeric" min="1" max="9999" value="1">
+            <button type="button" class="icon-btn" id="qtyPlus" aria-label="বাড়ান">+</button>
+          </div>
+        </div>
+
+        <button class="btn btn-gold" id="addToOrderBtn" style="width:100%; margin-top:16px; font-size:16px">অর্ডারে যোগ করুন</button>
+        <p class="small muted" id="fileNeededNote" style="margin-top:10px; text-align:center" hidden>এই সেবার জন্য ফাইল লাগবে — পরের ধাপে আপলোড করতে পারবেন</p>
+        <a class="small" href="services.html" style="display:block; text-align:center; margin-top:12px; color:var(--green-700); text-decoration:none">← আরও সেবা দেখুন</a>
+      </aside>
+    </div>
+  </div>
+</main>
+
+<script src="assets/js/vendor-supabase.min.js" defer></script>
+<script src="assets/js/strings.js" defer></script>
+<script src="assets/js/config.js" defer></script>
+<script src="assets/js/dom.js" defer></script>
+<script src="assets/js/supabase.js" defer></script>
+<script src="assets/js/catalog.js"></script>
+<script src="assets/js/pages/service.js"></script>
+<script src="assets/js/app-shell.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+{
+  "name": "সেবাঘর — কম্পিউটার ও গ্রাফিক্স",
+  "short_name": "সেবাঘর",
+  "description": "প্রিন্ট, ফটোকপি, স্ক্যান, টাইপিং, ডিজাইন, দলিল ও অনলাইন সেবা — ডুমুরিয়া, খুলনা। অনলাইনে অর্ডার করুন, টোকেন নিয়ে কালেক্ট করুন।",
+  "lang": "bn",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#0d3b2e",
+  "background_color": "#f7f5ee",
+  "categories": ["business", "utilities", "shopping"],
+  "icons": [
+    { "src": "assets/img/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

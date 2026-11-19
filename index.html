@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://*.supabase.co; font-src 'self'; connect-src 'self' https://*.supabase.co wss://*.supabase.co; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0d3b2e">
+<meta name="description" content="সেবাঘর — ডুমুরিয়া, খুলনা। ফটোকপি, প্রিন্ট, স্ক্যান, টাইপিং, অনলাইন আবেদন, দলিল খসড়া ও গ্রাফিক্স সেবা — অনলাইনে অর্ডার করুন।">
+<title>সেবাঘর — কম্পিউটার, ফটোকপি, প্রিন্টিং ও গ্রাফিক্স (ডুমুরিয়া, খুলনা)</title>
+<link rel="icon" href="assets/img/icon.svg">
+<link rel="manifest" href="manifest.json">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="সেবাঘর">
+<link rel="stylesheet" href="assets/css/bundle.css">
+</head>
+<body>
+<a class="skip-link" href="#main">মূল কন্টেন্টে যান</a>
+<header class="topbar">
+  <div class="container">
+    <a class="topbar-title" href="index.html">সেবাঘর</a>
+    <span class="topbar-spacer"></span>
+    <a class="topbar-link" href="tools/index.html">টুলস</a>
+    <a class="topbar-link" href="jobs.html">জব বোর্ড</a>
+    <a class="topbar-link" href="track.html">অর্ডার ট্র্যাক করুন</a>
+    <a class="topbar-link" id="accountLink" href="login.html">সাইন ইন</a>
+  </div>
+</header>
+
+<main class="page" id="main">
+  <div class="container">
+    <section class="hero">
+      <svg width="96" height="96" viewBox="0 0 96 96" role="img" aria-label="সেবাঘর লোগো" style="margin:0 auto 24px">
+        <rect x="4" y="4" width="88" height="88" rx="18" fill="#0d3b2e"/>
+        <path d="M32 22h24l10 10v42a4 4 0 0 1-4 4H32a4 4 0 0 1-4-4V26a4 4 0 0 1 4-4z" fill="#f7f5ee"/>
+        <path d="M54 22v12h12" fill="#c9a227"/>
+        <path d="M40 46h18M40 56h18M40 66h12" stroke="#155c47" stroke-width="3.4" stroke-linecap="round"/>
+      </svg>
+      <h1 class="display">কাগজের সব কাজ,<br>এক ছাদের নিচে</h1>
+      <p class="sub">ফটোকপি • প্রিন্ট (সাদাকালো ও রঙিন) • স্ক্যান • বাংলা-ইংরেজি টাইপিং • অনলাইন ফর্ম ফিলআপ • CV • গ্রাফিক্স — সব এক জায়গায়, ঠিক সময়ে।</p>
+      <div class="hero-cta">
+        <a class="btn btn-gold" id="callBtn" href="tel:01700000000">দোকানে কল করুন</a>
+        <a class="btn btn-ghost" id="waBtn" href="https://wa.me/8801700000000" target="_blank" rel="noopener">WhatsApp-এ মেসেজ দিন</a>
+      </div>
+    </section>
+
+    <section class="shop-strip" aria-label="দোকানের তথ্য">
+      <div><div class="micro">ঠিকানা</div><div>ডুমুরিয়া, খুলনা</div></div>
+      <div><div class="micro">খোলার সময়</div><div id="hoursText">সকাল ৯টা – রাত ৮টা</div></div>
+      <div><div class="micro">অভিজ্ঞতা</div><div>১০+ বছর একই স্থানে</div></div>
+    </section>
+  </div>
+</main>
+
+<footer class="container" style="padding:24px 16px 40px; border-top:1px solid var(--border); color:var(--muted); font-size:12px; display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap">
+  <span>© ২০২৬ সেবাঘর — ডুমুরিয়া, খুলনা</span>
+  <span>কাস্টমার হেল্পলাইন: <a id="footPhone" href="tel:01700000000" style="color:var(--green-700); font-weight:700">01700000000</a></span>
+</footer>
+
+<script src="assets/js/vendor-supabase.min.js" defer></script>
+<script src="assets/js/strings.js" defer></script>
+<script src="assets/js/config.js" defer></script>
+<script src="assets/js/dom.js" defer></script>
+<script src="assets/js/supabase.js" defer></script>
+<script src="assets/js/pages/index.js"></script>
+<script src="assets/js/app-shell.js" defer></script>
+</body>
+</html>

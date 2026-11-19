@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://*.supabase.co; font-src 'self'; connect-src 'self' https://*.supabase.co wss://*.supabase.co; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0d3b2e">
+<meta name="robots" content="noindex,nofollow">
+<title>সেবাসমূহ — সেবাঘর এডমিন</title>
+<link rel="icon" href="assets/img/icon.svg">
+<link rel="stylesheet" href="assets/css/bundle.css">
+</head>
+<body>
+<a class="skip-link" href="#main">মূল কন্টেন্টে যান</a>
+<header class="topbar">
+  <div class="container">
+    <a class="topbar-title" href="admin.html">সেবাঘর — এডমিন</a>
+    <span class="topbar-spacer"></span>
+    <a class="topbar-link" href="admin-orders.html">অর্ডার কিউ</a>
+    <a class="topbar-link" href="admin-customers.html">কাস্টমার</a>
+    <a class="topbar-link" href="admin-work-queue.html">কাজের কিউ</a>
+    <a class="topbar-link" href="admin-jobs.html">জব বোর্ড</a>
+    <a class="topbar-link" href="admin-services.html" aria-current="page">সেবাসমূহ</a>
+    <a class="topbar-link" href="admin-reports.html">রিপোর্ট</a>
+    <button class="topbar-link" id="signOutBtn" type="button">সাইন আউট</button>
+  </div>
+</header>
+
+<main class="page" id="main">
+  <div class="container" style="max-width:1040px">
+    <div class="admin-shell">
+      <div>
+        <h1>সেবাসমূহ</h1>
+        <p class="muted small">মূল্য পরিবর্তন নতুন অর্ডারে প্রযোজ্য হবে — পুরনো অর্ডারের রসিদে পুরনো দাম থাকবে</p>
+      </div>
+      <button class="btn btn-primary" id="toggleAddBtn" type="button">+ নতুন সেবা যোগ করুন</button>
+    </div>
+
+    <!-- Add form -->
+    <form class="card" id="addForm" hidden style="margin-bottom:var(--sp-4)">
+      <h2>নতুন সেবা</h2>
+      <div class="settings-grid" style="margin-top:var(--sp-3)">
+        <div class="field">
+          <label for="f_name">নাম (বাংলা)</label>
+          <input class="control" id="f_name" required placeholder="যেমন: কালার প্রিন্ট (A4)">
+        </div>
+        <div class="field">
+          <label for="f_slug">স্লাগ</label>
+          <input class="control" id="f_slug" required pattern="[a-z0-9-]+" placeholder="color-print-a4" style="font-family:Courier Prime,monospace">
+          <span class="field-hint">ছোট হাতের ইংরেজি, অঙ্ক, হাইফেন</span>
+        </div>
+        <div class="field">
+          <label for="f_category">ক্যাটাগরি</label>
+          <select class="control" id="f_category" required></select>
+        </div>
+        <div class="field">
+          <label for="f_unit">একক</label>
+          <input class="control" id="f_unit" required placeholder="যেমন: কপি / পাতা / ঘণ্টা">
+        </div>
+        <div class="field">
+          <label for="f_price">মূল্য (৳)</label>
+          <input class="control" id="f_price" type="number" min="0" step="1" required inputmode="numeric" placeholder="10">
+        </div>
+        <div class="field">
+          <label for="f_eta">আনুমানিক সময়</label>
+          <input class="control" id="f_eta" placeholder="যেমন: একই দিনে">
+        </div>
+        <div class="field full">
+          <label for="f_desc">বিবরণ <span class="muted">(ঐচ্ছিক)</span></label>
+          <input class="control" id="f_desc" placeholder="সংক্ষিপ্ত বিবরণ">
+        </div>
+        <label class="check"><input type="checkbox" id="f_requires_file"><span>গ্রাহককে ফাইল আপলোড করতে হবে</span></label>
+        <label class="check"><input type="checkbox" id="f_active" checked><span>সক্রিয় (সাইটে দেখাবে)</span></label>
+      </div>
+      <div class="row" style="margin-top:var(--sp-4)">
+        <button class="btn btn-primary" type="submit" id="addSubmitBtn">সেভ করুন</button>
+        <button class="btn btn-ghost" type="button" id="addCancelBtn">বাতিল</button>
+      </div>
+    </form>
+
+    <!-- List -->
+    <div class="chips-row" id="activeChips" role="tablist" aria-label="ফিল্টার">
+      <button class="chip active" data-filter="active" role="tab" aria-selected="true">সক্রিয়</button>
+      <button class="chip" data-filter="inactive" role="tab" aria-selected="false">বন্ধ/নিষ্ক্রিয়</button>
+      <button class="chip" data-filter="all" role="tab" aria-selected="false">সব</button>
+    </div>
+    <div id="servicesList" aria-busy="true"></div>
+    <div class="empty-state compact" id="servicesEmpty" hidden>
+      <svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg>
+      <p>এই ফিল্টারে কোনো সেবা নেই</p>
+    </div>
+
+    <div class="empty-state" id="gate403" hidden>
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+      <h1>প্রবেশ নিষিদ্ধ</h1>
+      <p>আপনি এডমিন নন।</p>
+      <a class="btn btn-primary" href="login.html?next=admin-services.html">সাইন ইন করুন</a>
+    </div>
+  </div>
+</main>
+
+<!-- Price edit modal -->
+<div class="modal-overlay" id="priceModal" role="dialog" aria-modal="true" aria-labelledby="priceModalTitle">
+  <div class="modal">
+    <div class="modal-head"><h2 id="priceModalTitle" style="margin:0">মূল্য পরিবর্তন</h2></div>
+    <div class="modal-body">
+      <p class="small muted" id="priceModalService"></p>
+      <label class="small" for="priceModalInput" style="margin-top:8px; display:block">নতুন মূল্য (৳)</label>
+      <input class="control" id="priceModalInput" type="number" min="0" step="1" inputmode="numeric" style="margin-top:6px">
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" type="button" id="priceModalCancel">বাতিল</button>
+      <button class="btn btn-primary" type="button" id="priceModalSave">সেভ করুন</button>
+    </div>
+  </div>
+</div>
+
+<script src="assets/js/vendor-supabase.min.js" defer></script>
+<script src="assets/js/strings.js" defer></script>
+<script src="assets/js/config.js" defer></script>
+<script src="assets/js/dom.js" defer></script>
+<script src="assets/js/supabase.js" defer></script>
+<script src="assets/js/catalog.js"></script>
+<script src="assets/js/pages/admin-services.js"></script>
+</body>
+</html>

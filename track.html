@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://*.supabase.co; font-src 'self'; connect-src 'self' https://*.supabase.co wss://*.supabase.co; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0d3b2e">
+<title>অর্ডার ট্র্যাক করুন — সেবাঘর</title>
+<link rel="icon" href="assets/img/icon.svg">
+<link rel="manifest" href="manifest.json">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="সেবাঘর">
+<link rel="stylesheet" href="assets/css/bundle.css">
+<style>
+  .track-wrap { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:flex-start; gap:var(--sp-4); padding:var(--sp-10,40px) var(--sp-4) var(--sp-12); }
+  .track-card { width:100%; max-width:520px; }
+  .timeline { list-style:none; margin:var(--sp-5) 0 0; padding:0; }
+  .timeline li { display:flex; gap:var(--sp-3); align-items:flex-start; padding:var(--sp-2) 0; }
+  .dot { flex:none; width:14px; height:14px; border-radius:50%; border:2px solid var(--green-600); background:var(--surface); margin-top:4px; }
+  .dot.done { background:var(--green-600); }
+  .timeline li.done strong { color:var(--green-800); }
+  .track-meta { display:flex; justify-content:space-between; gap:var(--sp-3); flex-wrap:wrap; margin-top:var(--sp-4); padding:var(--sp-4); background:#f4f2e8; border-radius:var(--radius-md); }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">মূল কন্টেন্টে যান</a>
+<header class="topbar">
+  <div class="container">
+    <a class="topbar-title" href="index.html">সেবাঘর</a>
+    <span class="topbar-spacer"></span>
+    <a class="topbar-link" href="index.html">হোম</a>
+  </div>
+</header>
+<main id="main" class="track-wrap">
+  <div class="card track-card">
+    <h1>অর্ডার ট্র্যাক করুন</h1>
+    <p class="muted small" style="margin:8px 0 16px">টোকেন নম্বর (টি-০১৪ বা কেবল 14) আর মোবাইল নম্বর দিন</p>
+    <form id="trackForm" novalidate class="row" style="align-items:flex-end">
+      <div class="field" style="flex:1; min-width:110px">
+        <label for="token">টোকেন</label>
+        <input class="control" id="token" name="token" type="text" inputmode="numeric" autocomplete="off" required placeholder="টি-014">
+      </div>
+      <div class="field" style="flex:1.4; min-width:150px">
+        <label for="phone">মোবাইল</label>
+        <input class="control" id="phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel" required placeholder="017XXXXXXXX">
+      </div>
+      <button class="btn btn-primary" type="submit" id="trackBtn" style="min-height:44px">খুঁজুন</button>
+    </form>
+    <p class="field-error" id="trackError" role="alert" style="margin-top:12px"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> টোকেন বা নম্বর মেলেনি — দোকানে ফোন করুন</p>
+
+    <div id="trackResult" hidden></div>
+  </div>
+</main>
+
+<script src="assets/js/vendor-supabase.min.js" defer></script>
+<script src="assets/js/strings.js" defer></script>
+<script src="assets/js/config.js" defer></script>
+<script src="assets/js/dom.js" defer></script>
+<script src="assets/js/supabase.js" defer></script>
+<script src="assets/js/pages/track.js"></script>
+<script src="assets/js/app-shell.js" defer></script>
+</body>
+</html>

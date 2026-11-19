@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://*.supabase.co; font-src 'self'; connect-src 'self' https://*.supabase.co wss://*.supabase.co; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0d3b2e">
+<title>সেবা তালিকা — সেবাঘর</title>
+<meta name="description" content="সেবাঘরের সব সেবা — ফটোকপি, প্রিন্ট, স্ক্যান, টাইপিং, অনলাইন ফর্ম, CV, গ্রাফিক্স। দাম দেখুন, অনলাইনে অর্ডার করুন।">
+<link rel="icon" href="assets/img/icon.svg">
+<link rel="manifest" href="manifest.json">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="সেবাঘর">
+<link rel="stylesheet" href="assets/css/bundle.css">
+</head>
+<body>
+<a class="skip-link" href="#main">মূল কন্টেন্টে যান</a>
+<header class="topbar">
+  <div class="container">
+    <a class="topbar-title" href="index.html">সেবাঘর</a>
+    <span class="topbar-spacer"></span>
+    <a class="topbar-link" href="tools/index.html">টুলস</a>
+    <a class="topbar-link" href="jobs.html">জব বোর্ড</a>
+    <a class="topbar-link" href="track.html">অর্ডার ট্র্যাক করুন</a>
+    <a class="topbar-link" id="accountLink" href="login.html">সাইন ইন</a>
+  </div>
+</header>
+
+<main class="page" id="main">
+  <div class="container">
+    <h1 style="margin-bottom:4px">সব সেবা</h1>
+    <p class="muted" style="margin-bottom:var(--sp-4)">সার্চ করুন অথবা category বেছে নিন — দামের সাথে কোনো লুকানো চার্জ নেই</p>
+
+    <div class="catalog-toolbar">
+      <input class="control" id="searchBox" type="search" inputmode="search" placeholder="সেবা খুঁজুন — যেমন: প্রিন্ট, CV, বিয়ের কার্ড…" aria-label="সেবা খুঁজুন" style="flex:2; min-width:200px">
+      <select class="control" id="sortSelect" aria-label="সাজান" style="min-width:130px">
+        <option value="popular">জনপ্রিয়</option>
+        <option value="price-asc">দাম কম → বেশি</option>
+        <option value="price-desc">দাম বেশি → কম</option>
+      </select>
+    </div>
+    <div class="chips-row" id="categoryChips" role="tablist" aria-label="সেবা category"></div>
+
+    <div class="catalog-grid" id="catalogGrid" aria-busy="true"></div>
+
+    <div class="empty-state" id="catalogEmpty" hidden>
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+      <p>এই নামে/এই categoryতে কোনো সেবা মেলেনি</p>
+      <button class="btn btn-ghost" id="clearSearchBtn">খোঁজা মুছে দিন</button>
+    </div>
+
+    <div class="empty-state" id="catalogError" hidden>
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <p>সেবা তালিকা আনতে পারিনি — ইন্টারনেট দেখে আবার চেষ্টা করুন</p>
+      <button class="btn btn-primary" id="retryBtn">আবার চেষ্টা করুন</button>
+    </div>
+  </div>
+</main>
+
+<script src="assets/js/vendor-supabase.min.js" defer></script>
+<script src="assets/js/strings.js" defer></script>
+<script src="assets/js/config.js" defer></script>
+<script src="assets/js/dom.js" defer></script>
+<script src="assets/js/supabase.js" defer></script>
+<script src="assets/js/catalog.js"></script>
+<script src="assets/js/pages/services.js"></script>
+<script src="assets/js/app-shell.js" defer></script>
+</body>
+</html>

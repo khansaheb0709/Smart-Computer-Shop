@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://*.supabase.co; font-src 'self'; connect-src 'self' https://*.supabase.co wss://*.supabase.co; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0d3b2e">
+<meta name="robots" content="noindex,nofollow">
+<title>অর্ডার বিস্তার — সেবাঘর এডমিন</title>
+<link rel="icon" href="assets/img/icon.svg">
+<link rel="stylesheet" href="assets/css/bundle.css">
+<link rel="stylesheet" href="assets/css/print.css">
+</head>
+<body>
+<a class="skip-link" href="#main">মূল কন্টেন্টে যান</a>
+<header class="topbar">
+  <div class="container">
+    <a class="topbar-title" href="admin-orders.html">← অর্ডার কিউ</a>
+    <span class="topbar-spacer"></span>
+    <a class="topbar-link" href="admin-customers.html">কাস্টমার</a>
+    <a class="topbar-link" href="admin-work-queue.html">কাজের কিউ</a>
+    <a class="topbar-link" href="admin-jobs.html">জব বোর্ড</a>
+    <a class="topbar-link" href="admin-reports.html">রিপোর্ট</a>
+    <button class="btn btn-ghost btn-small" id="printBtn" type="button">রসিদ প্রিন্ট</button>
+    <button class="topbar-link" id="signOutBtn" type="button">সাইন আউট</button>
+  </div>
+</header>
+
+<main class="page" id="main">
+  <div class="container" style="max-width:960px">
+
+    <div class="row" id="orderHeaderRow" style="justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:var(--sp-3)">
+      <div>
+        <h1 style="display:flex; align-items:center; gap:var(--sp-3)"><span id="orderToken">টি-—</span><span class="badge" id="orderStatusBadge">—</span></h1>
+        <p class="muted small" id="orderMeta">লোড হচ্ছে…</p>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="card" style="margin:var(--sp-4) 0">
+      <h2>স্ট্যাটাস বদলান</h2>
+      <div class="row" id="actionButtons" style="margin-top:var(--sp-3)"></div>
+      <div class="row" style="margin-top:var(--sp-3)">
+        <button class="btn btn-ghost btn-small" id="reworkBtn" type="button"></button>
+      </div>
+      <div style="margin-top:var(--sp-3)">
+        <label class="small" for="notesInput">নোট <span class="muted">(শুধু এডমিন দেখবেন)</span></label>
+        <textarea class="control" id="notesInput" rows="2" style="margin:6px 0 8px" placeholder="যেমন: গ্রাহক বললেন বিকাশ নম্বরে পাঠান"></textarea>
+        <button class="btn btn-ghost btn-small" id="saveNotesBtn" type="button">নোট সেভ করুন</button>
+      </div>
+      <div id="cancelBox" hidden style="margin-top:var(--sp-3)">
+        <label class="small" for="cancelReason">বাতিলের কারণ (বাধ্যতামূলক)</label>
+        <input class="control" id="cancelReason" placeholder="যেমন: পেমেন্ট যাচাই হয়নি / গ্রাহক ফোন ধরেননি" style="margin:6px 0 8px">
+        <button class="btn btn-danger btn-small" id="confirmCancelBtn" type="button">অর্ডার বাতিল করুন</button>
+      </div>
+      <p class="small muted" id="actionHint" style="margin-top:8px"></p>
+    </div>
+
+    <div class="detail-layout">
+      <div class="stack">
+        <!-- Items -->
+        <div class="card">
+          <h2>আইটেম</h2>
+          <div class="table-wrap"><table class="table"><thead><tr><th>সেবা</th><th>পরিমাণ</th><th class="num">একক</th><th class="num">মোট</th><th style="width:44px">✓</th></tr></thead><tbody id="itemsBody"></tbody></table></div>
+          <div class="review-total"><span>মোট</span><span id="totalsTotal">৳০</span></div>
+          <p class="small muted" style="margin-top:6px">জমা: <span id="totalsPaid">০</span> • বাকি: <span id="totalsDue">৳০</span></p>
+          <p class="small" id="orderNotes" style="margin-top:8px; white-space:pre-wrap"></p>
+        </div>
+
+        <!-- Files -->
+        <div class="card">
+          <h2>আপলোড করা ফাইল</h2>
+          <div id="filesList" class="small muted">লোড হচ্ছে…</div>
+        </div>
+
+        <!-- Design proofs -->
+        <div class="card">
+          <h2>ডিজাইন প্রমাণ</h2>
+          <div id="proofsList" class="small muted">লোড হচ্ছে…</div>
+          <div style="border-top:1px dashed var(--line); margin-top:var(--sp-3); padding-top:var(--sp-3)">
+            <div id="roundChargeNote" class="small" hidden style="background:var(--amber-soft); border:1px solid var(--amber); color:var(--amber-deep,#7c2d12); border-radius:8px; padding:6px 10px; margin-bottom:8px; font-weight:600">রাউন্ড ৪+ — অতিরিক্ত সংশোধন চার্জ প্রযোজ্য হতে পারে। গ্রাহককে আগে জানিয়ে নিন।</div>
+            <label class="small" for="proofFile">নতুন প্রমাণ পাঠান (রাউন্ড <span id="nextRound">১</span>)</label>
+            <input class="control" id="proofFile" type="file" accept="image/jpeg,image/png,application/pdf" style="margin:6px 0">
+            <button class="btn btn-primary btn-small" id="sendProofBtn" type="button">প্রমাণ আপলোড ও পাঠান</button>
+          </div>
+        </div>
+
+        <!-- Events timeline -->
+        <div class="card">
+          <h2>হিস্টোরি</h2>
+          <ol id="eventsList" class="small" style="margin:0; padding-left:18px"></ol>
+        </div>
+      </div>
+
+      <div class="stack">
+        <!-- Customer -->
+        <div class="card">
+          <h2>গ্রাহক</h2>
+          <p id="customerName" style="font-weight:700">—</p>
+          <p class="small muted" id="customerPhone">—</p>
+          <p class="small muted" id="customerNote" style="margin-top:6px"></p>
+          <div class="row" style="margin-top:var(--sp-3)">
+            <a class="btn btn-ghost btn-small" id="callBtn" href="#" aria-label="কল করুন">কল করুন</a>
+            <a class="btn btn-ghost btn-small" id="waBtn" href="#" target="_blank" rel="noopener">WhatsApp</a>
+          </div>
+          <div id="claimRow" hidden style="margin-top:var(--sp-3); border-top:1px dashed var(--line); padding-top:var(--sp-3)">
+            <p class="small muted">গেস্ট অর্ডার — এই নম্বর দিয়ে অ্যাকাউন্ট থাকলে যুক্ত করুন</p>
+            <button class="btn btn-primary btn-small" id="claimBtn" type="button" style="margin-top:8px">গ্রাহককে সংযুক্ত করুন</button>
+          </div>
+        </div>
+
+        <!-- Payment -->
+        <div class="card" id="paymentCard">
+          <h2>পেমেন্ট</h2>
+          <div id="paymentBody">—</div>
+        </div>
+
+        <!-- Receipt preview -->
+        <div class="card">
+          <h2>রসিদ</h2>
+          <p class="small muted">A5 সাইজে প্রিন্ট হয়।</p>
+          <button class="btn btn-ghost btn-small" id="printBtn2" type="button" style="margin-top:8px">রসিদ প্রিন্ট করুন</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="empty-state" id="gateEmpty" hidden>
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <p>Supabase কনফিগার করা হয়নি — docs/05_Schema.md দেখুন</p>
+    </div>
+
+    <div class="empty-state" id="gate403" hidden>
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+      <h1>প্রবেশ নিষিদ্ধ</h1>
+      <p>আপনি এডমিন নন।</p>
+      <a class="btn btn-primary" href="login.html?next=admin-orders.html">সাইন ইন করুন</a>
+    </div>
+  </div>
+</main>
+
+<!-- A5 receipt (print only) -->
+<div id="printSheet" aria-hidden="true">
+  <div class="p-head">
+    <div class="p-shop" id="pShopName">সেবাঘর</div>
+    <div id="pShopLine" style="font-size:10px">ডুমুরিয়া, খুলনা</div>
+    <div id="pShopPhone" style="font-size:10px"></div>
+  </div>
+  <div class="p-token" id="pToken">টি-000</div>
+  <table class="p-table">
+    <thead><tr><th>আইটেম</th><th class="num">পরিমাণ</th><th class="num">মোট</th></tr></thead>
+    <tbody id="pItems"></tbody>
+  </table>
+  <hr class="p-hr">
+  <div class="p-total"><span>মোট</span><span id="pTotal">৳০</span></div>
+  <div class="p-meta"><span>জমা: ৳<span id="pPaid">০</span></span><span>বাকি: ৳<span id="pDue">০</span></span></div>
+  <hr class="p-hr">
+  <div id="pMeta" style="font-size:10px"></div>
+  <div class="p-foot" id="pFoot">ধন্যবাদ, আবার আসবেন!<br>— সেবাঘর</div>
+</div>
+
+<script src="assets/js/vendor-supabase.min.js" defer></script>
+<script src="assets/js/strings.js" defer></script>
+<script src="assets/js/config.js" defer></script>
+<script src="assets/js/dom.js" defer></script>
+<script src="assets/js/supabase.js" defer></script>
+<script src="assets/js/pages/admin-order.js"></script>
+</body>
+</html>

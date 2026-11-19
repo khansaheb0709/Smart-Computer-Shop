@@ -1,0 +1,30 @@
+/* A5 receipt print — docs/03_UI_Spec.md §Receipt + docs/06_Plan.md P2-16 */
+@page { size: A5; margin: 10mm; }
+@media print {
+  body * { visibility: hidden; }
+  #printSheet, #printSheet * { visibility: visible; }
+  #printSheet {
+    display: block !important; position: absolute; inset: 0;
+    font-family: 'Courier New', Courier, monospace; font-size: 12px; color: #000; background: #fff;
+    padding: 0; margin: 0;
+  }
+  .p-head { text-align: center; border-bottom: 2px dashed #000; padding-bottom: 8px; margin-bottom: 8px; }
+  .p-shop { font-size: 16px; font-weight: 700; letter-spacing: .02em; }
+  .p-token { font-size: 26px; font-weight: 800; text-align: center; margin: 8px 0; border: 2px solid #000; padding: 6px; }
+  .p-table { width: 100%; border-collapse: collapse; }
+  .p-table th, .p-table td { padding: 3px 2px; text-align: left; font-size: 12px; }
+  .p-table th { border-bottom: 1px dashed #000; }
+  .p-table td.num, .p-table th.num { text-align: right; }
+  .p-hr { border: none; border-top: 1px dashed #000; margin: 8px 0; }
+  .p-total { font-size: 15px; font-weight: 800; display: flex; justify-content: space-between; }
+  .p-meta { font-size: 11px; margin-top: 6px; display: flex; justify-content: space-between; }
+  .p-foot { text-align: center; font-size: 11px; margin-top: 10px; border-top: 2px dashed #000; padding-top: 8px; }
+}
+@media screen { #printSheet { display: none; } }
+
+/* page breaks for long receipts (25+ items) */
+@media print {
+  .p-table { page-break-inside: auto; }
+  .p-table tr { page-break-inside: avoid; page-break-after: auto; }
+  .p-total, .p-meta, .p-foot { page-break-inside: avoid; }
+}

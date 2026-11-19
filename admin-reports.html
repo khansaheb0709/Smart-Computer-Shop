@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://*.supabase.co; font-src 'self'; connect-src 'self' https://*.supabase.co wss://*.supabase.co; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0d3b2e">
+<meta name="robots" content="noindex,nofollow">
+<title>রিপোর্ট — সেবাঘর এডমিন</title>
+<link rel="icon" href="assets/img/icon.svg">
+<link rel="stylesheet" href="assets/css/bundle.css">
+</head>
+<body>
+<a class="skip-link" href="#main">মূল কন্টেন্টে যান</a>
+<header class="topbar">
+  <div class="container">
+    <a class="topbar-title" href="admin.html">সেবাঘর — এডমিন</a>
+    <span class="topbar-spacer"></span>
+    <a class="topbar-link" href="admin-orders.html">অর্ডার কিউ</a>
+    <a class="topbar-link" href="admin-customers.html">কাস্টমার</a>
+    <a class="topbar-link" href="admin-work-queue.html">কাজের কিউ</a>
+    <a class="topbar-link" href="admin-jobs.html">জব বোর্ড</a>
+    <a class="topbar-link" href="admin-services.html">সেবাসমূহ</a>
+    <a class="topbar-link" href="admin-reports.html" aria-current="page">রিপোর্ট</a>
+    <button class="topbar-link" id="signOutBtn" type="button">সাইন আউট</button>
+  </div>
+</header>
+
+<main class="page" id="main">
+  <div class="container" style="max-width:1040px">
+    <div class="admin-shell">
+      <h1>রিপোর্ট</h1>
+      <button class="btn btn-ghost btn-small" id="csvBtn" type="button">CSV ডাউনলোড</button>
+    </div>
+
+    <div class="chips-row" id="reportTabs" role="tablist" aria-label="রিপোর্ট ভিউ">
+      <button class="chip active" role="tab" data-view="summary" aria-selected="true">সারসংক্ষেপ</button>
+      <button class="chip" role="tab" data-view="dues" aria-selected="false">বাকি লেজার</button>
+    </div>
+
+    <!-- ===== SUMMARY VIEW ===== -->
+    <section id="view-summary" role="tabpanel">
+      <form class="card" id="rangeForm" style="display:flex; gap:var(--sp-3); align-items:flex-end; flex-wrap:wrap; margin-bottom:var(--sp-4)">
+        <div class="field">
+          <label for="fromDate">থেকে</label>
+          <input class="control" id="fromDate" type="date" required>
+        </div>
+        <div class="field">
+          <label for="toDate">পর্যন্ত</label>
+          <input class="control" id="toDate" type="date" required>
+        </div>
+        <button class="btn btn-primary btn-small" type="submit" id="applyRangeBtn" style="min-height:44px">দেখুন</button>
+        <span class="small muted" id="rangeHint"></span>
+      </form>
+
+      <div class="catalog-grid" style="grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); margin-bottom:var(--sp-4)">
+        <div class="card" style="padding:var(--sp-4)"><div class="micro">অর্ডার</div><div class="service-price" id="cardOrders">০</div></div>
+        <div class="card" style="padding:var(--sp-4)"><div class="micro">আয় (জমা)</div><div class="service-price" id="cardRevenue">৳০</div></div>
+        <div class="card" style="padding:var(--sp-4)"><div class="micro">বাকি</div><div class="service-price" id="cardDue" style="color:var(--danger)">৳০</div></div>
+        <div class="card" style="padding:var(--sp-4)"><div class="micro">অগ্রিম যাচাই বাকি</div><div class="service-price" id="cardPending" style="color:var(--amber)">০</div></div>
+      </div>
+
+      <div class="detail-layout">
+        <div class="card">
+          <h2>অর্ডারসমূহ</h2>
+          <div class="table-wrap"><table class="table">
+            <thead><tr><th>তারিখ</th><th>টোকেন</th><th>গ্রাহক</th><th>স্ট্যাটাস</th><th class="num">মোট</th><th class="num">বাকি</th></tr></thead>
+            <tbody id="ordersTableBody"></tbody>
+          </table></div>
+          <p class="small muted" id="ordersTableEmpty" hidden>এই পরিসরে কোনো অর্ডার নেই</p>
+        </div>
+
+        <div class="card">
+          <h2>শীর্ষ ৫ সেবা (পরিমাণ)</h2>
+          <div id="topServices" style="display:flex; flex-direction:column; gap:var(--sp-3); margin-top:var(--sp-3)"></div>
+          <p class="small muted" id="topServicesEmpty" hidden>ডেটা নেই</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== DUES LEDGER VIEW ===== -->
+    <section id="view-dues" role="tabpanel" hidden>
+      <p class="muted small" style="margin-bottom:var(--sp-3)">বাকি = মোট − জমা (বাতিল অর্ডার বাদ)। একবার মেসেজ পাঠালেই যাবে — wa.me লিংক নম্বর দিয়ে যাবে।</p>
+      <div class="card" style="padding:0; overflow:hidden">
+        <div class="table-wrap"><table class="table">
+          <thead><tr><th>তারিখ</th><th>টোকেন</th><th>গ্রাহক</th><th>নম্বর</th><th class="num">বাকি</th><th></th></tr></thead>
+          <tbody id="duesTableBody"></tbody>
+        </table></div>
+        <p class="small muted" id="duesEmpty" style="padding:var(--sp-4)" hidden>কোনো বাকি নেই — দারুণ! 🎉</p>
+      </div>
+      <p class="small muted" style="margin-top:var(--sp-3)">মোট বাকি: <strong id="duesTotal">৳০</strong> (<span id="duesCount">০</span>টি অর্ডার)</p>
+    </section>
+
+    <div class="empty-state" id="gate403" hidden>
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+      <h1>প্রবেশ নিষিদ্ধ</h1>
+      <p>আপনি এডমিন নন।</p>
+      <a class="btn btn-primary" href="login.html?next=admin-reports.html">সাইন ইন করুন</a>
+    </div>
+  </div>
+</main>
+
+<script src="assets/js/vendor-supabase.min.js" defer></script>
+<script src="assets/js/strings.js" defer></script>
+<script src="assets/js/config.js" defer></script>
+<script src="assets/js/dom.js" defer></script>
+<script src="assets/js/supabase.js" defer></script>
+<script src="assets/js/pages/admin-reports.js"></script>
+</body>
+</html>
